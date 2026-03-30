@@ -16,26 +16,55 @@ package Tree;
 public class MorrisTraversal {
 	
 	public static void Inorder(TreeNode root) {
-		TreeNode curl=root;  
+		
+		TreeNode curl=root; 
 		while(curl!=null) {
 			if(curl.left==null) {
 				System.out.println(curl.val);
 				curl=curl.right;
 			}else {
-				TreeNode prev=curl.left; 
-				while(prev.right !=null && prev.right!=curl)
-					prev=prev.right; 
-				if(prev.right==null) {
-					prev.right=curl;
+				TreeNode pre=curl.left; 
+				while(pre.right!=null && pre.right!=curl)
+					pre=pre.right;
+				if(pre.right==null) {
+					pre.right=curl;
 					curl=curl.left;
-				}else {
-					prev.right=null; 
-					System.out.println(curl.val);
-					curl=curl.right;
-				}
-					
+				}else
+					if(pre.right==curl) {
+						pre.right=null; 
+						System.out.println(curl.val);
+						curl=curl.right;
+					}
 			}
 		}
+	}
+	
+	public void preorder(TreeNode root) {
+		
+		TreeNode curl=root; 
+		while(curl!=null) {
+			if(curl.left==null) {
+				System.out.println(curl.val);
+				curl=curl.right;
+			}else {
+				TreeNode pre=curl.left;  
+				while(pre.right!=null && pre.right!=curl)
+					pre=pre.right;
+				
+				if(pre.right==null) {
+					pre.right=curl; 
+					System.out.println(curl.val);
+					curl=curl.left;
+				}
+				else {
+					pre.right=null;  
+					curl=curl.right;
+				}			
+				
+			}
+		}
+			
+		
 	}
 	
 	
@@ -51,9 +80,10 @@ public class MorrisTraversal {
 		 * */
 		
 		TreeNode root=TreeStructure.getTree(); 
+		MorrisTraversal m=new MorrisTraversal(); 
+		m.preorder(root);
 		
-		
-		Inorder(root);
+		//Inorder(root);
 		
 		
 
